@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import store from '../store'
-import { CreateInitTodoItemList, CreateUpdateTodoItemAction, CreateAddTodoItemList, CreateDeleteTodoItemList } from '../store/action-creator'
+import { CreateGetInitTodoList, CreateUpdateTodoItemAction, CreateAddTodoItemList, CreateDeleteTodoItemList } from '../store/action-creator'
 
 import TodoListUI from './todo-list-ui'
-import Axios from 'axios';
+
+const dispatch = store.dispatch
 
 class TodoList extends Component {
   constructor (props) {
@@ -20,15 +21,8 @@ class TodoList extends Component {
   }
 
   async componentDidMount () {
-    const { status, data } = await Axios.get('https://api.github.com/users/lz82')
-    if (status === 200) {      
-      const list = [
-        data.name
-      ]
-      const action = CreateInitTodoItemList(list)
-      store.dispatch(action)
-    }
-    
+    const action = CreateGetInitTodoList()
+    dispatch(action)
   }
 
   render () {
@@ -62,13 +56,13 @@ class TodoList extends Component {
   handleAdd (val) {
     if (val) {
       const action = CreateAddTodoItemList()
-      store.dispatch(action)
+      dispatch(action)
     }
   }
 
   handleDel (index, e) {
     const action = CreateDeleteTodoItemList(index)
-    store.dispatch(action)
+    dispatch(action)
   }
 }
 
