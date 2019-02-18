@@ -9,12 +9,12 @@ export default (state = defaultState, action) => {
   let newState = JSON.parse(JSON.stringify(state))
 
   if (action.type === ActionTypes.InitTodoItemList) {
-    newState.list = action.value
+    newState.list = action.payload.list
     return newState
   }
 
   if (action.type === ActionTypes.UpdateTodoItemValue) {
-    newState.todoItem = action.value
+    newState.todoItem = action.payload.val
     return newState
   }
 
@@ -25,7 +25,7 @@ export default (state = defaultState, action) => {
   }
 
   if (action.type === ActionTypes.DeleteTodoItemList) {
-    newState.list.splice(action.index, 1)
+    newState.list.splice(action.payload.index, 1)
     return newState
   }
 

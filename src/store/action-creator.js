@@ -1,16 +1,26 @@
 import * as ActionTypes from './action-types'
 
+export const CreateGetInitTodoList = () => {
+  return {
+    type: ActionTypes.GetInitTodoListData
+  }
+}
+
 export const CreateInitTodoItemList = list => {
   return {
     type: ActionTypes.InitTodoItemList,
-    value: list
+    payload: {
+      list
+    }
   }
 }
 
 export const CreateUpdateTodoItemAction = val => {
   return {
     type: ActionTypes.UpdateTodoItemValue,
-    value: val
+    payload: {
+      val
+    }
   }
 }
 
@@ -23,6 +33,8 @@ export const CreateAddTodoItemList = () => {
 export const CreateDeleteTodoItemList = index => {
   return {
     type: ActionTypes.DeleteTodoItemList,
-    index
+    payload: {
+      index
+    }
   }
 }

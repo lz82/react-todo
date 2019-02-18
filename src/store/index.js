@@ -1,5 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux'
-import thunk from 'redux-thunk'
+import createSagaMiddleware from 'redux-saga'
+
+import sagas from './sagas'
 import reducer from './reducer'
 
 const composeEnhancers =
@@ -9,11 +11,14 @@ const composeEnhancers =
       // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
     }) : compose;
 
+const sagaMiddleware = createSagaMiddleware()
+
 const enhancer = composeEnhancers(
-  applyMiddleware(thunk),
-  // other store enhancers if any
+  applyMiddleware(sagaMiddleware)
 );
 
 const store = createStore(reducer, enhancer)
+
+sagaMiddleware.run(sagas)
 
 export default store
