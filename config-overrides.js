@@ -1,9 +1,11 @@
 const { override, fixBabelImports } = require('customize-cra')
 
-module.exports = override(
+module.exports = {
+  webpack: override(
     fixBabelImports('import', {
-        libraryName: 'antd',
-        libraryDirectory: 'es',
-        style: 'css'
+      libraryName: 'antd',
+      libraryDirectory: 'es',
+      style: 'css'
     })
-)
+  )
+}
