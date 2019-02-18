@@ -1,3 +1,5 @@
+export const GetInitTodoItemList = 'get_inintodoitem_list'
+
 export const InitTodoItemList = 'init_todoitem_list'
 
 export const UpdateTodoItemValue = 'update_todoitem_value'
