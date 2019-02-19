@@ -2,10 +2,15 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Input, List, Icon } from 'antd'
 
-import { CreateTodoitemInputChangeAction, CreateTodoItemListAddAction, CreateTodoItemListDelAction } from '../store/action-creator'
+import { CreateTodoitemInputChangeAction, CreateTodoItemListAddAction, CreateTodoItemListDelAction, CreateTodoItemInitDataFetchAction } from '../store/action-creator'
 
 
 class TodoList extends Component {
+
+  componentDidMount () {
+    this.props.initTodoItem()
+  }
+
   render () {
     const { todoItem, todoList, todoItemInputChange, todoItemListAdd, todoItemDel } = this.props
     return (
@@ -53,6 +58,10 @@ const mapDispatchToProps = dispatch => {
 
     todoItemDel (index) {
       dispatch(CreateTodoItemListDelAction(index))
+    },
+
+    initTodoItem () {
+      dispatch(CreateTodoItemInitDataFetchAction())
     }
   }
 }

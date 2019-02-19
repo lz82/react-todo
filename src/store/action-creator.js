@@ -19,3 +19,14 @@ export const CreateTodoItemListDelAction = index => ({
     index
   }
 })
+
+export const CreateTodoItemInitDataFetchAction = () => ({
+  type: ActionTypes.InitTodoItemFetch
+})
+
+export const CreateTodoItemInitDataAction = data => ({
+  type: ActionTypes.TodoItemListInit,
+  payload: {
+    list: data
+  }
+})

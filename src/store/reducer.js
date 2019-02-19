@@ -27,5 +27,11 @@ export default (state = defaultState, action) => {
     return newState
   }
 
+  if (action.type === ActionTypes.TodoItemListInit) {
+    newState.todoList = [action.payload.list]
+
+    return newState
+  }
+
   return state
 }
