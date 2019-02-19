@@ -1,40 +1,21 @@
 import * as ActionTypes from './action-types'
 
-export const CreateGetInitTodoList = () => {
-  return {
-    type: ActionTypes.GetInitTodoListData
+// 创建todo item input change 的action
+export const CreateTodoitemInputChangeAction = val => ({
+  type: ActionTypes.TodoItemInputChange,
+  payload: {
+    val
   }
-}
+})
 
-export const CreateInitTodoItemList = list => {
-  return {
-    type: ActionTypes.InitTodoItemList,
-    payload: {
-      list
-    }
-  }
-}
+// todolist add
+export const CreateTodoItemListAddAction = () => ({
+  type: ActionTypes.TodoItemListAdd
+})
 
-export const CreateUpdateTodoItemAction = val => {
-  return {
-    type: ActionTypes.UpdateTodoItemValue,
-    payload: {
-      val
-    }
+export const CreateTodoItemListDelAction = index => ({
+  type: ActionTypes.TodoItemListDel,
+  payload: {
+    index
   }
-}
-
-export const CreateAddTodoItemList = () => {
-  return {
-    type: ActionTypes.InsertTodoItemList
-  }
-}
-
-export const CreateDeleteTodoItemList = index => {
-  return {
-    type: ActionTypes.DeleteTodoItemList,
-    payload: {
-      index
-    }
-  }
-}
+})

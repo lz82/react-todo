@@ -1,5 +1,12 @@
-.app-layout {
+.app-layout-header {
   .header {
     color: #fff;
   }
+  
+}
+
+.app-layout-content {
+  .todo-list-wrapper {
+    width: 500px;
+  } 
 }

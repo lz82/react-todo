@@ -1,9 +1,6 @@
-export const GetInitTodoListData = 'get_inittodoitem_list'
+// todoItem input change
+export const TodoItemInputChange = 'todoitem_input_change'
 
-export const InitTodoItemList = 'init_todoitem_list'
+export const TodoItemListAdd = 'todoitem_list_add'
 
-export const UpdateTodoItemValue = 'update_todoitem_value'
-
-export const InsertTodoItemList = 'insert_todoitem_list'
-
-export const DeleteTodoItemList = 'delete_todoitem_list'
+export const TodoItemListDel = 'todoitem_list_del'

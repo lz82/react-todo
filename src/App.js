@@ -1,7 +1,8 @@
-import React, { Component, Fragment } from 'react';
-import 'antd/lib/layout'
+import React, { Component } from 'react'
+import { Provider } from 'react-redux'
 import { Layout } from 'antd'
 import TodoList from './component/todo-list'
+import store from './store'
 
 import './App.scss'
 
@@ -10,19 +11,21 @@ const { Header, Content } = Layout
 class App extends Component {
   render() {
     return (
-      <Fragment>
-        <Layout className='app-layout'>
+      <Provider store={store}>
+        <Layout className='app-layout-header'>
           <Header className='header'>
             TODO List
           </Header>
         </Layout>
-        <Layout>
+        <Layout className='app-layout-content'>
           <Content style={{padding: '20px 50px'}}>
-            <TodoList />
+            <div className="todo-list-wrapper">
+              <TodoList />
+            </div>
           </Content>
         </Layout>
-      </Fragment>
-    );
+      </Provider>
+    )
   }
 }
 

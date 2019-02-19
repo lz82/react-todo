@@ -1,69 +1,60 @@
-import React, { Component } from 'react'
-import store from '../store'
-import { CreateGetInitTodoList, CreateUpdateTodoItemAction, CreateAddTodoItemList, CreateDeleteTodoItemList } from '../store/action-creator'
+import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
+import { Input, List, Icon } from 'antd'
 
-import TodoListUI from './todo-list-ui'
+import { CreateTodoitemInputChangeAction, CreateTodoItemListAddAction, CreateTodoItemListDelAction } from '../store/action-creator'
 
-const dispatch = store.dispatch
 
 class TodoList extends Component {
-  constructor (props) {
-    super(props)
-
-    this.state = store.getState()
-    this.handleAdd = this.handleAdd.bind(this)
-    this.handleTodoChange = this.handleTodoChange.bind(this)
-    this.handleDel = this.handleDel.bind(this)
-
-    this.handleStoreChange = this.handleStoreChange.bind(this)
-
-    store.subscribe(this.handleStoreChange)
-  }
-
-  async componentDidMount () {
-    const action = CreateGetInitTodoList()
-    dispatch(action)
-  }
-
   render () {
-    const { todoItem, list } = this.state
+    const { todoItem, todoList, todoItemInputChange, todoItemListAdd, todoItemDel } = this.props
     return (
-      <TodoListUI
-        todoItem={todoItem }
-        list={ list }
-        handleTodoChange={ this.handleTodoChange }
-        handleAdd={ this.handleAdd }
-        handleDel={ this.handleDel }
-      />
+      <Fragment>
+        <Input.Search 
+          placeholder='please input todo item'
+          enterButton='Add'
+          allowClear
+          value={ todoItem }
+          onChange={ todoItemInputChange }
+          onSearch={ todoItemListAdd }
+        />
+        <List 
+          dataSource={ todoList }
+          renderItem={(item, index) => (
+            <List.Item
+              actions={[<Icon type="delete" style={{cursor: 'pointer'}} onClick={ todoItemDel.bind(this, index) } />]}
+            >
+             { item }
+            </List.Item>
+          )}
+        />
+      </Fragment>
     )
-  }
-
-  handleTodoChange (e) {
-    const todoItem = e.target.value
-    const action = CreateUpdateTodoItemAction(todoItem)
-    store.dispatch(action)
-    if (!todoItem) {
-      this.todoInput.focus()
-    }
-  }
-
-  handleStoreChange () {
-    this.setState(() => {
-      return store.getState()
-    })
-  }
-
-  handleAdd (val) {
-    if (val) {
-      const action = CreateAddTodoItemList()
-      dispatch(action)
-    }
-  }
-
-  handleDel (index, e) {
-    const action = CreateDeleteTodoItemList(index)
-    dispatch(action)
   }
 }
 
-export default TodoList
+const mapStateToProps = state => ({
+  todoItem: state.todoItem,
+  todoList: state.todoList
+})
+
+const mapDispatchToProps = dispatch => {
+  return {
+    todoItemInputChange (e) {
+      dispatch(CreateTodoitemInputChangeAction(e.target.value))
+      if (e.target.value === '') {
+        e.target.focus()
+      }
+    },
+
+    todoItemListAdd () {
+      dispatch(CreateTodoItemListAddAction())
+    },
+
+    todoItemDel (index) {
+      dispatch(CreateTodoItemListDelAction(index))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList)
