@@ -15,7 +15,7 @@ class TodoList extends Component {
     this.handleDel = this.handleDel.bind(this)
 
     this.handleStoreChange = this.handleStoreChange.bind(this)
-
+    this.todoInput = React.createRef()
     store.subscribe(this.handleStoreChange)
   }
 
@@ -40,6 +40,7 @@ class TodoList extends Component {
         handleTodoChange={ this.handleTodoChange }
         handleAdd={ this.handleAdd }
         handleDel={ this.handleDel }
+        ref={this.todoInput}
       />
     )
   }
@@ -48,9 +49,6 @@ class TodoList extends Component {
     const todoItem = e.target.value
     const action = CreateUpdateTodoItemAction(todoItem)
     store.dispatch(action)
-    if (!todoItem) {
-      this.todoInput.focus()
-    }
   }
 
   handleStoreChange () {

@@ -12,6 +12,10 @@ class TodoListUI extends Component {
     super(props)
 
     this.state = {}
+
+    this.handleTodoChange = this.handleTodoChange.bind(this)
+
+    this.todoInput = React.createRef()
   }
 
   render () {
@@ -24,8 +28,8 @@ class TodoListUI extends Component {
           enterButton='Add'
           size='large'
           allowClear
-          ref={ node => this.todoInput = node }
-          onChange={ handleTodoChange }
+          ref={ this.todoInput }
+          onChange={ this.handleTodoChange }
           onSearch={ handleAdd }
         />
         <List
@@ -52,6 +56,13 @@ class TodoListUI extends Component {
   handleDel (index, e) {
     e.preventDefault()
     this.props.handleDel(index)
+  }
+
+  handleTodoChange (e) {
+    if (e.target.value === '') {
+      e.target.focus()
+    }
+    this.props.handleTodoChange(e)
   }
 }
 
